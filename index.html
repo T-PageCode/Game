@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>T-PageCode Color Game</title>
+    <style>
+        *{
+            overflow: hidden;
+            user-select: none;
+        }
+        .color{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: rgb(255,200,0);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transition: transform 0.3s ease,
+            opacity 0.3s ease;
+        }
+        .color:hover{
+            transform: translate(-50%,-50%) scale(1.2);
+        }
+        #number{
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="color"></div>
+    <h1 id="number">0</h1>
+    <script>
+        document.addEventListener("contextmenu",(e) => {
+            e.preventDefault();
+        })
+        let num = 0;
+        let intervals = null;
+        const number = document.getElementById("number");
+        function buildYellow() {
+            let randomX = Math.floor(Math.random() * (window.innerWidth - 20)) + 10;
+            let randomY = Math.floor(Math.random() * (window.innerHeight - 20)) + 10;
+            let randomRgbA = Math.floor(Math.random() * 255);
+            let randomRgbB = Math.floor(Math.random() * 255);
+            let randomRgbC = Math.floor(Math.random() * 255);
+            let color = document.createElement("div");
+            color.style.left = randomX + "px";
+            color.style.top = randomY + "px";
+            color.style.backgroundColor = `rgb(${randomRgbA},${randomRgbB},${randomRgbC})`;
+            color.classList.add("color");
+            document.body.appendChild(color);
+        }
+        intervals = setInterval(buildYellow,1000);
+        document.addEventListener("mousedown",(e) => {
+            if (e.target.classList.contains("color")) {
+                e.target.style.opacity = "0";
+                setTimeout(() => {
+                    e.target.remove();
+                },300);
+                num += 1;
+                number.innerText = num;
+                if (num === 30) {
+                    clearInterval(intervals);
+                    intervals = setInterval(buildYellow,400);
+                }
+                else if (num === 20) {
+                    clearInterval(intervals);
+                    intervals = setInterval(buildYellow,600);
+                }
+                else if (num === 10) {
+                    clearInterval(intervals);
+                    intervals = setInterval(buildYellow,800);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

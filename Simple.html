@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>T-PageCode Game</title>
+    <style>
+        body{
+            background-color: rgb(255,255,255);
+            user-select: none;
+        }
+        *{
+            margin: 0;
+            cursor: none;
+        }
+        #game-div{
+            position: fixed;
+            bottom: 75px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: rgb(0,150,255);
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        #mouse{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgb(0,150,255);
+            border-radius: 50%;
+            filter: blur(5px);
+            opacity: 0.5;
+            transition: transform 0.3s ease;
+            z-index: 3;
+        }
+        #down{
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            background-color: rgb(0,150,0);
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="down"></div>
+    <div id="game-div"></div>
+    <div id="mouse"></div>
+    <script>
+        document.addEventListener("contextmenu",(e) => {
+            e.preventDefault();
+        })
+        let x = 0;
+        let y = 0;
+        const gameDiv = document.getElementById("game-div");
+        const mouse = document.getElementById("mouse");
+        document.addEventListener("keydown",(e) => {
+            if (e.key === "ArrowUp") {
+                y -= 30;
+                setTimeout(() => {
+                    y += 30;
+                    gameDiv.style.transform = `translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`;
+                },300)
+            }
+            if (e.key === "ArrowLeft") {
+                x -= 30;
+            }
+            if (e.key === "ArrowRight") {
+                x += 30;
+            }
+            if (e.key === "w") {
+                y -= 30;
+                setTimeout(() => {
+                    y += 30;
+                    gameDiv.style.transform = `translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`;
+                },300)
+            }
+            if (e.key === "a") {
+                x -= 30;
+            }
+            if (e.key === "d") {
+                x += 30;
+            }
+            if (e.key === " ") {
+                y -= 30;
+                setTimeout(() => {
+                    y += 30;
+                    gameDiv.style.transform = `translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`;
+                },300)
+            }
+            gameDiv.style.transform = `translate(calc(-50% + ${x}px),calc(-50% + ${y}px))`;
+        })
+        document.addEventListener("mousemove",(e) => {
+            let mouseX = e.clientX + "px";
+            let mouseY = e.clientY + "px";
+            mouse.style.left = mouseX;
+            mouse.style.top = mouseY;
+        })
+        document.addEventListener("mousedown",(e) => {
+            mouse.style.transform = "translate(-50%,-50%) scale(2)";
+        })
+        document.addEventListener("mouseup",(e) => {
+            mouse.style.transform = "translate(-50%,-50%)";
+        })
+    </script>
+</body>
+</html>
